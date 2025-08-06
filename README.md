@@ -1,188 +1,34 @@
 # DSCPL - AI Spiritual Companion
 
-A modern, intuitive, and accessible web application that serves as an AI-powered spiritual companion. The DSCPL app is designed to help users cultivate daily spiritual discipline and emotional wellness through personalized, interactive tools.
+DSCPL is a modern, full-stack web application that serves as an AI-powered spiritual companion. Built with React.js frontend and Flask backend, it provides personalized spiritual guidance, daily devotionals, prayer assistance, meditation guidance, and progress tracking. The application integrates with Google Gemini and Groq AI for intelligent spiritual conversations and guidance.
 
 ## Table of Content
-- [Project Vision](#Project_Vision)
-- [Core Features](#Core_Features)
-- [UI/UX Philosophy](#UI/UX_Philosophy)
-- [Technology Stack](#Technology_Stack)
-- [Getting Started](#Getting_Started)
 - [Project Structure](#Project_Structure)
+- [Prerequisites & Installation](#Prerequisites_and_Installation)
+- [Usage](#Usage)
+- [Technical Details](#Technical_Details)
 - [API Endpoints](#API_Endpoints)
-- [Data Storage](#Data_Storage)
-- [Key Features Implementation](#Key_Features_Implementation)
-- [Security & Privacy](#Security_&_Privacy)
-- [Deployment Options](#Deployment_Options)
-- [Contributing](#Contributing)
-- [License](#License)
-- [Acknowledgments](#Acknowledgments)
-
-## Project_Vision
-To develop a comprehensive spiritual companion that combines modern technology with timeless spiritual practices, providing users with:
-- Personalized AI-powered guidance
-- Structured spiritual programs
-- Progress tracking and accountability
-- Seamless calendar integration
-- Emergency spiritual support
-
-## Core_Features
-### 🤖 AI-Powered Chat
-- **Dual AI Integration**: Switch between Google Gemini for nuanced conversations and Groq API for high-speed responses
-- **Context-Aware Guidance**: Theologically grounded and contextually relevant spiritual support
-- **Quick Response Options**: Pre-defined spiritual guidance prompts
-- **Scripture Integration**: AI-powered scripture recommendations based on topics
-
-### 📖 Guided Spiritual Programs
-- **Daily Devotion**: 5-minute Bible reading with prayer and reflection
-- **Prayer**: Structured prayer using various models (ACTS, etc.)
-- **Meditation**: Scripture-focused meditation with breathing guides
-- **Accountability**: Weekly spiritual check-ins and progress tracking
-
-### 📅 Google Calendar Integration
-- **Seamless Scheduling**: Schedule spiritual programs directly to Google Calendar
-- **Automatic Reminders**: Set up daily, weekly, or custom spiritual routines
-- **Progress Sync**: Track completion and maintain consistency
-
-### 📊 Visual Progress Dashboard
-- **Activity Tracking**: Monitor completed devotions, prayers, meditations, and accountability sessions
-- **Streak Tracking**: Current and longest spiritual discipline streaks
-- **Weekly Goals**: Set and track weekly spiritual goals
-- **Visual Analytics**: Charts and graphs showing spiritual growth over time
-
-### 🆘 Emergency SOS Support
-- **Instant Access**: Quick spiritual support during moments of distress
-- **Pre-defined Content**: Curated scripture, prayers, and encouragement
-- **Crisis Resources**: Immediate spiritual guidance for difficult situations
-
-## UI/UX_Philosophy
-### Design Aesthetic
-- **Spiritual + Modern Theme**: Calming color palettes with contemporary layouts
-- **Responsive Design**: Mobile-first approach ensuring flawless experience across all devices
-- **Micro-interactions**: Subtle animations and smooth transitions for fluid user experience
-- **Accessibility**: Screen reader support and keyboard-only navigation
-- **Theming**: Light and Dark mode support
-
-### Color Palette
-- **Primary**: Spiritual purple (#8B5CF6)
-- **Secondary**: Calming blue (#3B82F6)
-- **Accent**: Warm gold (#F59E0B)
-- **Success**: Peaceful green (#10B981)
-- **Warning**: Gentle orange (#F97316)
-
-## Technology_Stack
-### Frontend
-- **Framework**: React.js with Vite
-- **Styling**: Tailwind CSS
-- **UI Components**: Shadcn/UI
-- **Icons**: Lucide React
-- **Charts**: Recharts
-- **Routing**: React Router DOM
-
-### Backend
-- **Framework**: Python Flask
-- **AI Engine**: LangChain with multiple LLM providers
-- **APIs**: Google Gemini, Groq API
-- **External Integration**: Google Calendar API
-- **CORS**: Flask-CORS for cross-origin requests
-
-### Database & Storage
-- **Primary Storage**: LocalStorage for offline-first experience
-- **Session Storage**: Temporary data and chat sessions
-- **Data Management**: Custom storage utilities with export/import capabilities
-
-### Development Tools
-- **Package Manager**: pnpm
-- **Build Tool**: Vite
-- **Development Server**: Flask development server
-- **Environment**: Node.js 20.18.0, Python 3.11
-
-## Getting_Started
-### Prerequisites
-- Node.js 20.18.0 or higher
-- Python 3.11 or higher
-- pnpm package manager
-
-### Installation
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/abhinav-nautiyal/Disciple-App-Spiritual-AI-Agent-.git
-   cd dscpl_project
-   ```
-
-2. **Setup Frontend**
-   ```bash
-   cd frontend
-   pnpm install
-   ```
-
-3. **Setup Backend**
-   ```bash
-   cd ../backend
-   pip3 install -r requirements.txt
-   ```
-
-4. **Environment Configuration**
-   Create `.env` files for both frontend and backend:
-   
-   Frontend `.env`:
-   ```
-   VITE_API_BASE_URL=http://localhost:5000/api
-   VITE_APP_NAME=DSCPL - AI Spiritual Companion
-   VITE_APP_VERSION=1.0.0
-   ```
-   
-   Backend environment variables:
-   ```
-   GOOGLE_API_KEY=your-google-api-key
-   GROQ_API_KEY=your-groq-api-key
-   GOOGLE_CLIENT_ID=your-google-client-id
-   GOOGLE_CLIENT_SECRET=your-google-client-secret
-   ```
-
-### Running the Application
-
-#### Development Mode (Separate Servers)
-1. **Start Backend Server**
-   ```bash
-   cd backend
-   python3 src/main.py
-   ```
-   Backend will run on `http://localhost:5000`
-
-2. **Start Frontend Server**
-   ```bash
-   cd frontend
-   pnpm run dev
-   ```
-   Frontend will run on `http://localhost:5173`
-
-#### Production Mode (Integrated Server)
-1. **Build Frontend**
-   ```bash
-   cd frontend
-   pnpm run build
-   ```
-
-2. **Copy Build to Backend**
-   ```bash
-   cp -r dist/* ../backend/src/static/
-   ```
-
-3. **Start Integrated Server**
-   ```bash
-   cd ../backend
-   python3 src/main.py
-   ```
-   Full application will run on `http://localhost:5000`
+- [Features](#Features)
 
 ## Project_Structure
 ```bash
 dscpl_project/
-├── frontend/                 # React frontend application
+├── backend/                    # Flask backend application
 │   ├── src/
-│   │   ├── components/      # React components
-│   │   │   ├── ui/         # Reusable UI components
+│   │   ├── routes/            # API route handlers
+│   │   │   ├── ai_chat.py     # AI conversation endpoints
+│   │   │   ├── spiritual_programs.py # Spiritual content API
+│   │   │   ├── calendar_integration.py # Google Calendar API
+│   │   │   └── user.py        # User management
+│   │   ├── models/            # Database models
+│   │   │   └── user.py        # User model
+│   │   ├── static/            # Built frontend files
+│   │   └── main.py            # Flask application entry point
+│   └── requirements.txt       # Python dependencies
+├── frontend/                  # React frontend application
+│   ├── src/
+│   │   ├── components/        # React components
+│   │   │   ├── ui/           # Reusable UI components (50+ components)
 │   │   │   ├── WelcomeScreen.jsx
 │   │   │   ├── ChatScreen.jsx
 │   │   │   ├── DevotionScreen.jsx
@@ -193,162 +39,214 @@ dscpl_project/
 │   │   │   ├── DashboardScreen.jsx
 │   │   │   ├── SOSScreen.jsx
 │   │   │   └── InspirationScreen.jsx
-│   │   ├── hooks/          # Custom React hooks
-│   │   │   └── useStorage.js
-│   │   ├── utils/          # Utility functions
-│   │   │   ├── api.js      # API client
-│   │   │   └── storage.js  # Storage management
-│   │   ├── App.jsx         # Main application component
-│   │   └── main.jsx        # Application entry point
-│   ├── public/             # Static assets
-│   ├── dist/              # Built application (after build)
-│   ├── package.json       # Frontend dependencies
-│   └── vite.config.js     # Vite configuration
-├── backend/                # Flask backend application
-│   ├── src/
-│   │   ├── routes/        # API route handlers
-│   │   │   ├── ai_chat.py
-│   │   │   ├── spiritual_programs.py
-│   │   │   ├── calendar_integration.py
-│   │   │   └── user.py
-│   │   ├── models/        # Data models
-│   │   │   └── user.py
-│   │   ├── static/        # Static files (built frontend)
-│   │   └── main.py        # Flask application entry point
-│   └── requirements.txt   # Backend dependencies
-└── README.md             # Project documentation
+│   │   ├── hooks/            # Custom React hooks
+│   │   │   └── useStorage.js # Storage management hooks
+│   │   ├── utils/            # Utility functions
+│   │   │   ├── api.js        # API client
+│   │   │   └── storage.js    # Storage management
+│   │   ├── App.jsx           # Main application component
+│   │   └── main.jsx          # Application entry point
+│   ├── public/               # Static assets
+│   ├── package.json          # Frontend dependencies
+│   ├── vite.config.js        # Vite configuration
+│   └── pnpm-lock.yaml        # Dependency lock file
+├── .env.example              # Environment variables template
+├── .gitignore               # Git ignore rules
+├── README.md                # Project documentation
+├── FEATURES.md              # Detailed features documentation
+└── DEPLOYMENT_GUIDE.md      # Deployment instructions
 ```
+
+## Prerequisites_and_Installation
+### Prerequisites
+- **Node.js**: Version 20.18.0 or higher
+- **Python**: Version 3.11 or higher
+- **pnpm**: Package manager for Node.js
+- **pip**: Python package manager
+
+### Installation
+1. **Clone the repository:**
+```bash
+git clone https://github.com/your-username/dscpl_project.git
+cd dscpl_project
+```
+
+2. **Set up environment variables:**
+```bash
+cp .env.example .env
+# Edit .env file with your API keys
+```
+
+3. **Install frontend dependencies:**
+```bash
+cd frontend
+pnpm install
+```
+
+4. **Install backend dependencies:**
+```bash
+cd ../backend
+pip install -r requirements.txt
+```
+
+5. **Build frontend for production:**
+```bash
+cd ../frontend
+pnpm run build
+cp -r dist/* ../backend/src/static/
+```
+
+## Usage
+### Development Mode
+1. **Start backend server:**
+```bash
+cd backend
+python3.11 src/main.py
+```
+Backend runs on: `http://localhost:5001`
+
+2. **Start frontend development server:**
+```bash
+cd frontend
+pnpm run dev
+```
+Frontend runs on: `http://localhost:5173`
+
+### Production Mode
+1. **Build and serve integrated application:**
+```bash
+cd frontend && pnpm run build
+cp -r dist/* ../backend/src/static/
+cd ../backend && python3.11 src/main.py
+```
+Full application runs on: `http://localhost:5001`
+
+### Web Interface
+Access the application:
+```bash
+# Development
+http://localhost:5173
+
+# Production
+http://localhost:5001
+```
+
+## Technical_Details
+### Frontend Technology Stack
+- **Framework**: React.js 19.1.0 with Vite 6.3.5
+- **Styling**: Tailwind CSS 4.1.7
+- **UI Components**: Shadcn/UI (Radix UI primitives)
+- **Icons**: Lucide React
+- **Charts**: Recharts for data visualization
+- **Routing**: React Router DOM 7.6.1
+- **Package Manager**: pnpm
+
+### Backend Technology Stack
+- **Framework**: Flask 3.1.1
+- **AI Engine**: LangChain 0.3.27
+- **AI Providers**: Google Gemini, Groq API
+- **Database**: SQLAlchemy with SQLite
+- **CORS**: Flask-CORS for cross-origin requests
+- **External APIs**: Google Calendar API
+
+### Data Management
+- **Storage**: LocalStorage for offline-first experience
+- **Session Management**: Browser session storage
+- **Data Export/Import**: JSON backup and restore
+- **Privacy**: All data stored locally, no server storage
+
+### AI Integration
+- **Dual AI Providers**: Seamless switching between Gemini and Groq
+- **Spiritual Focus**: Biblically grounded system prompts
+- **Context Awareness**: Conversation memory and continuity
+- **Quick Responses**: Pre-defined spiritual guidance options
 
 ## API_Endpoints
 ### AI Chat
-- `POST /api/chat` - Send message to AI
-- `POST /api/chat/stream` - Streaming chat responses
-- `GET /api/chat/quick-responses` - Get quick response options
-- `POST /api/chat/scripture` - Get scripture guidance for topics
+```http
+POST /api/chat
+{
+    "message": "I need spiritual guidance",
+    "provider": "gemini|groq",
+    "context": "previous conversation context"
+}
+```
 
 ### Spiritual Programs
-- `GET /api/devotions` - Get available devotion topics
-- `GET /api/devotions/{id}` - Get specific devotion content
-- `GET /api/prayers` - Get available prayer topics
-- `GET /api/prayers/{id}` - Get specific prayer content
-- `GET /api/meditations` - Get available meditation topics
-- `GET /api/meditations/{id}` - Get specific meditation content
-- `GET /api/accountability` - Get accountability areas
-- `GET /api/accountability/{id}` - Get specific accountability content
-- `POST /api/complete` - Mark activity as completed
-- `POST /api/schedule` - Schedule spiritual program
-- `GET /api/inspiration` - Get daily inspiration content
+```http
+GET /api/devotions                    # Get available devotion topics
+GET /api/devotions/{id}              # Get specific devotion content
+GET /api/prayers                     # Get available prayer topics
+GET /api/prayers/{id}                # Get specific prayer content
+GET /api/meditations                 # Get available meditation topics
+GET /api/meditations/{id}            # Get specific meditation content
+GET /api/accountability              # Get accountability areas
+GET /api/accountability/{id}         # Get specific accountability content
+POST /api/complete                   # Mark activity as completed
+POST /api/schedule                   # Schedule spiritual program
+GET /api/inspiration                 # Get daily inspiration content
+```
 
 ### Calendar Integration
-- `GET /api/calendar/status` - Check calendar connection status
-- `GET /api/calendar/auth/google` - Initiate Google OAuth
-- `POST /api/calendar/disconnect` - Disconnect calendar
-- `POST /api/calendar/events` - Create calendar events
-- `GET /api/calendar/events` - Get calendar events
-- `DELETE /api/calendar/events/{id}` - Delete calendar event
-- `POST /api/calendar/sync` - Sync programs with calendar
-- `GET /api/calendar/preferences` - Get calendar preferences
-- `POST /api/calendar/preferences` - Update calendar preferences
+```http
+GET /api/calendar/status             # Check calendar connection status
+GET /api/calendar/auth/google        # Initiate Google OAuth
+POST /api/calendar/disconnect        # Disconnect calendar
+POST /api/calendar/events            # Create calendar events
+GET /api/calendar/events             # Get calendar events
+DELETE /api/calendar/events/{id}     # Delete calendar event
+POST /api/calendar/sync              # Sync programs with calendar
+GET /api/calendar/preferences        # Get calendar preferences
+POST /api/calendar/preferences       # Update calendar preferences
+```
 
-## Data_Storage
-### LocalStorage Structure
-- `dscpl_devotions` - Completed devotion activities
-- `dscpl_prayers` - Completed prayer activities
-- `dscpl_meditations` - Completed meditation activities
-- `dscpl_accountability` - Completed accountability sessions
-- `dscpl_chat_history` - Chat conversation history
-- `dscpl_scheduled_programs` - Scheduled spiritual programs
-- `dscpl_progress_stats` - Progress tracking statistics
-- `dscpl_user_settings` - User preferences and settings
-- `dscpl_theme` - Current theme (light/dark)
-- `dscpl_ai_provider` - Selected AI provider
-- `dscpl_calendar_connected` - Calendar connection status
+### Quick Responses
+```http
+GET /api/chat/quick-responses        # Get predefined spiritual guidance options
+POST /api/chat/scripture             # Get scripture-based guidance for topics
+```
 
-### Data Export/Import
-- **Export**: Download all user data as JSON backup
-- **Import**: Restore data from JSON backup file
-- **Clear**: Remove all stored data (with confirmation)
+## Features
+### Core Functionality
+- ✅ **AI-Powered Chat**: Dual AI integration (Gemini & Groq)
+- ✅ **Daily Devotion**: 7 spiritual topics with Bible readings
+- ✅ **Daily Prayer**: ACTS model and structured prayer guidance
+- ✅ **Daily Meditation**: Scripture-focused meditation practices
+- ✅ **Daily Accountability**: Spiritual discipline tracking
+- ✅ **Progress Dashboard**: Visual analytics and streak tracking
+- ✅ **Calendar Integration**: Google Calendar scheduling
+- ✅ **Emergency SOS**: Crisis spiritual support
+- ✅ **Inspiration Feed**: Daily uplifting content
 
-## Key_Features_Implementation
-### Spiritual Activities Tracking
-Each spiritual activity (devotion, prayer, meditation, accountability) is tracked with:
-- Unique ID and timestamp
-- Activity type and topic
-- Duration and completion status
-- User notes and ratings
-- Progress towards goals
+### Technical Features
+- ✅ **Responsive Design**: Mobile-first, cross-device compatibility
+- ✅ **Dark/Light Theme**: Complete theme system
+- ✅ **Offline Support**: Core features work without internet
+- ✅ **Data Export/Import**: Complete backup and restore
+- ✅ **Real-time Chat**: Streaming AI responses
+- ✅ **Session Management**: Persistent user sessions
+- ✅ **Error Handling**: Graceful failure management
+- ✅ **Accessibility**: Screen reader and keyboard navigation
 
-### AI Integration
-- **LangChain Framework**: Manages multiple AI providers
-- **Context Awareness**: Maintains conversation context
-- **Spiritual Focus**: System prompts ensure biblical guidance
-- **Provider Switching**: Seamless switching between Gemini and Groq
+### AI & Spiritual Features
+- ✅ **Context-Aware Conversations**: Memory of previous discussions
+- ✅ **Scripture Integration**: Bible verse recommendations
+- ✅ **Spiritual Guidance**: Biblically grounded responses
+- ✅ **Provider Switching**: Real-time AI model selection
+- ✅ **Quick Response System**: Pre-defined spiritual prompts
+- ✅ **Personalized Content**: Adaptive spiritual recommendations
 
-### Progress Analytics
-- **Streak Calculation**: Current and longest streaks
-- **Weekly Goals**: Customizable spiritual goals
-- **Activity Distribution**: Visual breakdown of spiritual practices
-- **Historical Data**: Long-term progress tracking
+### Security & Privacy
+- ✅ **Local Data Storage**: No personal data on servers
+- ✅ **API Key Security**: Secure environment variable management
+- ✅ **CORS Protection**: Proper cross-origin request handling
+- ✅ **Input Validation**: XSS protection and sanitization
+- ✅ **Privacy-First**: Anonymous usage, no tracking
 
-### Responsive Design
-- **Mobile-First**: Optimized for mobile devices
-- **Touch Support**: Touch-friendly interactions
-- **Adaptive Layout**: Adjusts to different screen sizes
-- **Performance**: Optimized loading and interactions
-
-## Security_&_Privacy
-### Data Protection
-- **Local Storage**: All personal data stored locally on user's device
-- **No Server Storage**: Spiritual activities and progress not stored on servers
-- **API Security**: Secure API key management
-- **CORS Protection**: Configured cross-origin request handling
-
-### Privacy Features
-- **Offline Capability**: Core features work without internet
-- **Data Export**: Users can export their data anytime
-- **Clear Data**: Option to completely clear all stored data
-- **No Tracking**: No user tracking or identification
-
-## Deployment_Options
-### Local Development
-- Run frontend and backend separately for development
-- Hot reloading and debugging capabilities
-- Full development tools access
-
-### Local Production
-- Integrated Flask server serving React build
-- Single server deployment
-- Production-optimized build
-
-### Cloud Deployment
-- Ready for deployment to cloud platforms
-- Environment variable configuration
-- Scalable architecture
-
-## Contributing
-### Development Guidelines
-1. Follow React best practices for frontend development
-2. Use Flask blueprints for backend organization
-3. Maintain consistent code formatting
-4. Write descriptive commit messages
-5. Test features thoroughly before committing
-
-### Code Style
-- **Frontend**: ESLint + Prettier configuration
-- **Backend**: PEP 8 Python style guide
-- **Components**: Functional components with hooks
-- **API**: RESTful endpoint design
-
-## License
-This project is developed as part of a technical assignment and follows the requirements specified in the original assignment documentation.
-
-## Acknowledgments
-- **Assignment Provider**: Original requirements and vision
-- **UI/UX Inspiration**: Modern spiritual app design patterns
-- **Technology Stack**: React, Flask, LangChain, and supporting libraries
-- **AI Providers**: Google Gemini and Groq for spiritual guidance capabilities
-
----
-
-**Built with ❤️ and faith for spiritual growth and daily discipline**
+### User Experience
+- ✅ **Modern UI**: Clean, spiritual-themed interface
+- ✅ **Micro-interactions**: Smooth animations and transitions
+- ✅ **Touch Optimization**: Mobile-friendly interactions
+- ✅ **Performance**: Optimized loading and caching
+- ✅ **Progressive Web App**: Installable web application
 
