@@ -17,10 +17,7 @@
       }
     }
   },
-  "buildCommand": "echo 'Python backend deployment - no build required'",
-  "startCommand": "python3.11 main.py",
   "healthcheckPath": "/api/health",
   "healthcheckTimeout": 300,
-  "healthcheckInterval": 30,
-  "language": "python"
+  "healthcheckInterval": 30
 } 
