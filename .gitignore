@@ -1,0 +1,53 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Node.js
+node_modules/
+build/
+dist/
+.pnpm-store/
+
+# IDEs
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Database
+*.db
+
+# Credentials
+*.key
+*.pem
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Specific to Flask
+instance/
+
+# Specific to React
+.parcel-cache/
+
+# API Keys (if not in .env)
+GOOGLE_API_KEY
+GROQ_API_KEY
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+
+
