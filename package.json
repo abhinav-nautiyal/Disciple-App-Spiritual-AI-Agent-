@@ -1,0 +1,28 @@
+{
+  "name": "dscpl-spiritual-companion",
+  "version": "1.0.0",
+  "description": "AI-powered spiritual companion with React frontend and Flask backend",
+  "scripts": {
+    "build": "cd frontend && npm install -g pnpm && pnpm install && pnpm run build && cp -r dist/* ../backend/src/static/",
+    "start": "cd backend && python3.11 src/main.py"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abhinav-nautiyal/Disciple-App-Spiritual-AI-Agent-.git"
+  },
+  "keywords": [
+    "spiritual",
+    "ai",
+    "react",
+    "flask",
+    "chatbot",
+    "meditation",
+    "prayer"
+  ],
+  "author": "Abhinav Nautiyal",
+  "license": "MIT"
+} 
