@@ -4,7 +4,6 @@
   "description": "AI-powered spiritual companion with React frontend and Flask backend",
   "scripts": {
     "dev": "cd frontend && pnpm dev",
-    "build": "cd frontend && pnpm build",
     "preview": "cd frontend && pnpm preview"
   },
   "engines": {
