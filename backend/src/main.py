@@ -23,19 +23,6 @@ app.register_blueprint(ai_chat_bp, url_prefix='/api/chat')
 app.register_blueprint(spiritual_programs_bp, url_prefix='/api/spiritual-programs')
 app.register_blueprint(calendar_bp, url_prefix='/api/calendar')
 
-# Serve React frontend
-@app.route('/')
-def serve_frontend():
-    return send_from_directory(app.static_folder, 'index.html')
-
-@app.route('/<path:path>')
-def serve_frontend_routes(path):
-    # Check if it's a static file
-    if '.' in path:
-        return send_from_directory(app.static_folder, path)
-    # Otherwise serve the React app
-    return send_from_directory(app.static_folder, 'index.html')
-
 # Health check endpoint for Railway
 @app.route('/api/health')
 def health_check():
@@ -45,9 +32,9 @@ def health_check():
         'version': '1.0.0'
     }), 200
 
-# Root endpoint
-@app.route('/')
-def root():
+# Root API endpoint
+@app.route('/api')
+def api_root():
     return jsonify({
         'message': 'DSCPL Spiritual Companion API',
         'version': '1.0.0',
@@ -59,6 +46,46 @@ def root():
         }
     })
 
+# Serve React frontend
+@app.route('/')
+def serve_frontend():
+    static_folder_path = app.static_folder
+    if static_folder_path is None:
+        return "Static folder not configured", 404
+    
+    index_path = os.path.join(static_folder_path, 'index.html')
+    if os.path.exists(index_path):
+        return send_from_directory(static_folder_path, 'index.html')
+    else:
+        return jsonify({
+            'message': 'DSCPL Spiritual Companion API',
+            'version': '1.0.0',
+            'note': 'Frontend not built yet'
+        })
+
+@app.route('/<path:path>')
+def serve_frontend_routes(path):
+    static_folder_path = app.static_folder
+    if static_folder_path is None:
+        return "Static folder not configured", 404
+    
+    # Check if it's a static file
+    if '.' in path:
+        file_path = os.path.join(static_folder_path, path)
+        if os.path.exists(file_path):
+            return send_from_directory(static_folder_path, path)
+    
+    # Otherwise serve the React app
+    index_path = os.path.join(static_folder_path, 'index.html')
+    if os.path.exists(index_path):
+        return send_from_directory(static_folder_path, 'index.html')
+    else:
+        return jsonify({
+            'message': 'DSCPL Spiritual Companion API',
+            'version': '1.0.0',
+            'note': 'Frontend not built yet'
+        })
+
 # Error handlers
 @app.errorhandler(404)
 def not_found(error):
@@ -68,29 +95,14 @@ def not_found(error):
 def internal_error(error):
     return jsonify({'error': 'Internal server error'}), 500
 
-# uncomment if you need to use database
+# Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+
+# Initialize database
 with app.app_context():
     db.create_all()
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve(path):
-    static_folder_path = app.static_folder
-    if static_folder_path is None:
-            return "Static folder not configured", 404
-
-    if path != "" and os.path.exists(os.path.join(static_folder_path, path)):
-        return send_from_directory(static_folder_path, path)
-    else:
-        index_path = os.path.join(static_folder_path, 'index.html')
-        if os.path.exists(index_path):
-            return send_from_directory(static_folder_path, 'index.html')
-        else:
-            return "index.html not found", 404
-
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5001))

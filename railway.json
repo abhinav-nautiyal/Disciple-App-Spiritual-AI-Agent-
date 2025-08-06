@@ -18,5 +18,7 @@
     }
   },
   "buildCommand": "echo 'Backend only deployment - no build required'",
-  "startCommand": "cd backend && python3.11 src/main.py"
+  "startCommand": "cd backend && python3.11 src/main.py",
+  "healthcheckPath": "/api/health",
+  "healthcheckTimeout": 300
 } 
