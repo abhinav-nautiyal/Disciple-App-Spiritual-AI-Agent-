@@ -4,6 +4,7 @@ services:
     env: python
     plan: free
     buildCommand: |
+      mkdir -p backend/src/static
       cd frontend && npm install -g pnpm && pnpm install && pnpm run build
       cp -r dist/* ../backend/src/static/
     startCommand: cd backend && python3.11 src/main.py
