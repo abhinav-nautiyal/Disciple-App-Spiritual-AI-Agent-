@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "AI-powered spiritual companion with React frontend and Flask backend",
   "scripts": {
-    "build": "./build.sh",
-    "start": "cd backend && python3.11 src/main.py"
+    "dev": "cd frontend && pnpm dev",
+    "build": "cd frontend && pnpm build",
+    "preview": "cd frontend && pnpm preview"
   },
   "engines": {
     "node": ">=20.0.0",
