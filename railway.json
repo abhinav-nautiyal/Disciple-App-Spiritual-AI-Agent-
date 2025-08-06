@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "cd backend && python3.11 src/main.py",
+    "startCommand": "cd backend && python3.11 start.py",
     "healthcheckPath": "/api/health",
     "healthcheckTimeout": 300,
     "restartPolicyType": "ON_FAILURE",
@@ -18,7 +18,8 @@
     }
   },
   "buildCommand": "echo 'Backend only deployment - no build required'",
-  "startCommand": "cd backend && python3.11 src/main.py",
+  "startCommand": "cd backend && python3.11 start.py",
   "healthcheckPath": "/api/health",
-  "healthcheckTimeout": 300
+  "healthcheckTimeout": 300,
+  "healthcheckInterval": 30
 } 

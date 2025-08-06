@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Flask backend for DSCPL Spiritual Companion",
   "scripts": {
-    "start": "python3.11 src/main.py",
+    "start": "python3.11 start.py",
     "dev": "python3.11 src/main.py"
   },
   "engines": {
