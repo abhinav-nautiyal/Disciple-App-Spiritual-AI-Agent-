@@ -3,10 +3,7 @@ services:
     name: dscpl-spiritual-companion
     env: python
     plan: free
-    buildCommand: |
-      mkdir -p backend/src/static
-      cd frontend && npm install -g pnpm && pnpm install && pnpm run build
-      cp -r dist/* ../backend/src/static/
+    buildCommand: ./build.sh
     startCommand: cd backend && python3.11 src/main.py
     envVars:
       - key: PYTHON_VERSION
